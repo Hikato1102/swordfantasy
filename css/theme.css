@@ -1,0 +1,142 @@
+/* ============================================================
+ * 《長夢一命》美術主題變數（theme.css）
+ * 固定夜色主題，唔跟系統 prefers-color-scheme。
+ *
+ * 引入次序建議：
+ *   1) 程式結構（例如 css/base.css，可選）
+ *   2) css/theme.css   ← 本檔，色板準繩
+ *   3) css/layout.css
+ *
+ * 本檔會同步覆寫程式現有嘅 --cm-*（base.css）
+ * 同 --bg / --ink / --gold 等短名（style.css），
+ * 方便後載入就可以換到正式夜色＋暖燈金。
+ * 請勿刪走程式已有嘅 css/base.css、css/style.css。
+ * ============================================================ */
+
+:root {
+  /* ---------- 背景 ---------- */
+  /* 夜空底：墨藍，刻意唔用純黑，避免死黑同發灰閃爍 */
+  --color-bg-night: #0D1424;
+  /* 面板：比夜空亮一階，用喺頂欄、卡片 */
+  --color-bg-panel: #161E30;
+  /* 抬升面：卡片內層、列表項、輸入框底 */
+  --color-bg-panel-2: #1C2540;
+  /* 底分頁欄：貼近夜空，略深過面板，令主區更突出 */
+  --color-bg-tabbar: #101828;
+  /* 輸入框 */
+  --color-bg-input: #121A2C;
+
+  /* ---------- 文字 ---------- */
+  /* 近白主文，微暖（燈光下嘅紙白），唔係羊皮紙黃 */
+  --color-text-primary: #F2F0EA;
+  /* 灰藍次文：時間、說明、非活躍標籤 */
+  --color-text-secondary: #8B96AB;
+  /* 更弱一級；已調到面板上亦達 AA，用喺輔助標記 */
+  --color-text-muted: #7B869D;
+
+  /* ---------- 強調：暖燈金（煤油燈／琥珀） ---------- */
+  --color-gold: #E2B65A;
+  --color-gold-bright: #F0C56E; /* hover、按下前、高亮數字 */
+  --color-gold-dim: #B8923E;    /* 金色描邊、次要金飾 */
+  --color-gold-ink: #1A1408;    /* 寫喺金色按鈕上嘅墨字 */
+
+  /* ---------- 邊線 ---------- */
+  --color-line: #2A3348;        /* 低對比藍灰，分隔用，唔好再深到隱形、亦唔好刺眼 */
+  --color-line-strong: #3A4560; /* 需要稍為強調嘅框 */
+
+  /* ---------- 狀態（夜色調，唔用螢光） ---------- */
+  --color-success: #5E9A70;
+  --color-warning: #D19A4C;
+  --color-danger: #C47272;
+
+  /* ---------- 透明光影 ---------- */
+  --color-gold-glow: rgba(226, 182, 90, 0.22);
+  --color-scrim: rgba(7, 11, 20, 0.72);
+  --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.40);
+  --shadow-gold: 0 0 16px rgba(226, 182, 90, 0.22);
+
+  /* ---------- 字體／字級 ---------- */
+  /* 字為主：系統繁中 sans，唔用宋體／楷書做正文（避免公會羊皮紙感） */
+  --font-sans: "PingFang TC", "Noto Sans TC", "Noto Sans CJK TC",
+               "Microsoft JhengHei", "Heiti TC", system-ui, sans-serif;
+  --fs-xs: 11px;   /* 底欄標籤 */
+  --fs-sm: 13px;   /* 次文、狀態列 */
+  --fs-md: 16px;   /* 正文 */
+  --fs-lg: 18px;   /* 小標題 */
+  --fs-xl: 22px;   /* 頂欄書名 */
+  --lh-body: 1.7;
+  --lh-tight: 1.35;
+
+  /* ---------- 圓角、間距、觸控 ---------- */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --touch: 44px;
+  --tabbar-height: 56px;
+  --icon-size-tab: 24px;
+
+  /* ---------- 安全區 ---------- */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+
+  /* ---------- 對齊 css/base.css 嘅 --cm-* ---------- */
+  --cm-bg: var(--color-bg-night);
+  --cm-bg-elev: var(--color-bg-panel);
+  --cm-bg-soft: var(--color-bg-panel-2);
+  --cm-fg: var(--color-text-primary);
+  --cm-muted: var(--color-text-secondary);
+  --cm-accent: var(--color-gold);
+  --cm-accent-2: var(--color-gold-bright);
+  --cm-danger: var(--color-danger);
+  --cm-safe: var(--color-success);
+  --cm-line: var(--color-line);
+  --cm-shadow: var(--shadow-soft);
+  --cm-font-display: var(--font-sans);
+  --cm-font-ui: var(--font-sans);
+  --cm-radius: var(--radius-lg);
+  --cm-radius-sm: var(--radius-md);
+  --cm-pad: var(--space-4);
+  --cm-safe-top: var(--safe-top);
+  --cm-safe-bottom: var(--safe-bottom);
+
+  /* ---------- 對齊 css/style.css 短名（若該檔仍會載入） ---------- */
+  --bg: var(--color-bg-night);
+  --bg-2: var(--color-bg-tabbar);
+  --panel: var(--color-bg-panel);
+  --panel-2: var(--color-bg-panel-2);
+  --line: var(--color-line);
+  --ink: var(--color-text-primary);
+  --muted: var(--color-text-secondary);
+  --gold: var(--color-gold);
+  --gold-dim: var(--color-gold-dim);
+  --lamp: var(--color-gold-bright);
+  --danger: var(--color-danger);
+  --ok: var(--color-success);
+  --shadow: var(--shadow-soft);
+  --radius: var(--radius-md);
+  --tab-h: var(--tabbar-height);
+  --safe-b: var(--safe-bottom);
+  --font: var(--font-sans);
+  --font-ui: var(--font-sans);
+  --fs: var(--fs-md);
+}
+
+html {
+  color-scheme: dark;
+  background: var(--color-bg-night);
+}
+
+/* 遊戲固定夜色：即使系統係淺色，都唔切換 */
+@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: dark;
+  }
+}

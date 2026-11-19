@@ -1,0 +1,73 @@
+/* ============================================================
+ * MERGE: css/app.css
+ * 職責：僅補程式需要、美術檔未涵蓋的規則（全螢幕殼、結算層）。
+ * 不覆寫 theme.css / layout.css / style.css 的色板與組件。
+ * ============================================================ */
+
+html, body {
+  height: 100%;
+}
+
+.cmy-app {
+  min-height: 100dvh;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.cmy-meter.is-low .cmy-meter__fill {
+  background: var(--color-danger, #c45c5c);
+}
+
+.cmy-sheet-root {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.cmy-sheet-root.is-open { display: flex; }
+
+.cmy-sheet {
+  width: 100%;
+  max-width: 480px;
+  max-height: 86dvh;
+  overflow: auto;
+  background: var(--color-bg-panel, #161E30);
+  color: var(--color-text-primary, #F2F0EA);
+  border-radius: 20px 20px 0 0;
+  padding: 18px 18px calc(18px + env(safe-area-inset-bottom, 0px));
+  border: 1px solid var(--color-line, #2a334c);
+}
+
+.cmy-sheet h2 {
+  margin: 0 0 8px;
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+.cmy-sheet .cmy-kicker {
+  margin: 0 0 4px;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: var(--color-gold, #e0b56a);
+}
+
+.cmy-actions--row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2, 8px);
+}
+
+.cmy-clock {
+  font-variant-numeric: tabular-nums;
+}
+
+.cmy-tab__icon[hidden] { display: none; }
+
+.cmy-card p { margin: 0 0 8px; }
+.cmy-card p:last-child { margin-bottom: 0; }

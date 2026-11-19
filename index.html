@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0D1424">
+  <meta name="color-scheme" content="dark">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <title>長夢一命</title>
+  <!--
+    MERGE: index.html 可玩入口（手機優先）。
+    樣式：theme.css → layout.css → app.css（美術第一批），再補 game-extra.css。
+    不刪、不改 theme / layout / base / style。圖示用 assets/icons（symlink 至 art/icons）。
+    啟動順序：data.js → sim.js → save.js → game-ui.js → boot.js。
+  -->
+  <link rel="icon" href="art/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/game-extra.css">
+  <link rel="stylesheet" href="css/gate.css">
+</head>
+<body>
+  <div id="cmy-root">
+    <div class="cmy-gate" id="cmy-gate">
+      <form class="cmy-gate__card" id="cmy-gate-form" autocomplete="current-password">
+        <h1 class="cmy-gate__title">長夢一命</h1>
+        <p class="cmy-gate__sub">試玩頁。請輸入密碼後進入。這場夢只存在你這部裝置。</p>
+        <label class="cmy-gate__label" for="cmy-gate-pw">密碼</label>
+        <input class="cmy-gate__input" id="cmy-gate-pw" name="password" type="password" inputmode="text" autocomplete="current-password" required>
+        <p class="cmy-gate__err" id="cmy-gate-err" role="alert"></p>
+        <button class="cmy-btn cmy-btn--primary cmy-gate__btn" type="submit">進入</button>
+      </form>
+    </div>
+    <div class="cmy-app" id="cmy-app" hidden>
+
+      <header class="cmy-topbar">
+        <h1 class="cmy-topbar__title">長夢一命</h1>
+        <p class="cmy-topbar__sub"><span id="cmy-clock" class="cmy-clock">牆上時鐘</span></p>
+        <p class="cmy-topbar__sub" id="cmy-sub"></p>
+        <div class="cmy-status" id="cmy-status" data-vitals></div>
+      </header>
+
+      <main class="cmy-main" id="cmy-main"></main>
+
+      <nav class="cmy-tabbar" id="cmy-tabbar" aria-label="主分頁">
+        <button type="button" class="cmy-tab is-active" data-tab="action" aria-current="page">
+          <img class="cmy-tab__icon" src="assets/icons/tab-action.png" alt="" onerror="this.hidden=true">
+          <span class="cmy-tab__label">行動</span>
+        </button>
+        <button type="button" class="cmy-tab" data-tab="bag">
+          <img class="cmy-tab__icon" src="assets/icons/muted/tab-bag.png" alt="" onerror="this.hidden=true">
+          <span class="cmy-tab__label">背包</span>
+        </button>
+        <button type="button" class="cmy-tab" data-tab="skill">
+          <img class="cmy-tab__icon" src="assets/icons/muted/tab-skill.png" alt="" onerror="this.hidden=true">
+          <span class="cmy-tab__label">技能</span>
+        </button>
+        <button type="button" class="cmy-tab" data-tab="quest">
+          <img class="cmy-tab__icon" src="assets/icons/muted/tab-quest.png" alt="" onerror="this.hidden=true">
+          <span class="cmy-tab__label">任務</span>
+        </button>
+        <button type="button" class="cmy-tab" data-tab="log">
+          <img class="cmy-tab__icon" src="assets/icons/muted/tab-log.png" alt="" onerror="this.hidden=true">
+          <span class="cmy-tab__label">紀錄</span>
+        </button>
+        <button type="button" class="cmy-tab" data-tab="settings">
+          <img class="cmy-tab__icon" src="assets/icons/muted/tab-settings.png" alt="" onerror="this.hidden=true">
+          <span class="cmy-tab__label">設定</span>
+        </button>
+      </nav>
+
+      <div class="cmy-toast" id="cmy-toast" role="status"></div>
+      <div class="cmy-overlay" id="cmy-overlay"></div>
+    </div>
+  </div>
+
+  <script src="js/gate.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/sim.js"></script>
+  <script src="js/save.js"></script>
+  <script src="js/game-ui.js"></script>
+  <script src="js/boot.js"></script>
+</body>
+</html>

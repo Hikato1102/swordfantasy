@@ -1,1 +1,3 @@
-# swordfantasy
+# 長夢一命
+
+靜態試玩頁，用 GitHub Pages 發布。進入前有瀏覽器密碼門（非伺服器驗證）。

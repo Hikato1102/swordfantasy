@@ -1,0 +1,348 @@
+/* ============================================================
+ * MERGE: css/base.css
+ * 職責：手機優先的結構佈局與最低可玩樣式。
+ * ART HOOK：請用 css/theme.css（在 index 裏接在本檔之後）覆寫
+ *   :root 變數，或覆蓋下方標了 [ART] 的視覺規則。
+ * 請保留這些結構 class，以免邏輯/DOM 對不上：
+ *   .cm-app .cm-topbar .cm-clock .cm-vitals .cm-hp .cm-stage
+ *   .cm-nav .cm-panel .cm-modal .cm-btn .cm-log .cm-brand
+ * 除非必要，勿整份覆寫本檔；美術圖示請放 /art。
+ * 正式入口 index.html 現改掛 theme.css + layout.css + app.css。
+ * 本檔保留以方便合併，請勿刪。不要用本檔覆寫美術色板。
+ * ============================================================ */
+
+:root {
+  --cm-bg: #12141c;
+  --cm-bg-elev: #1b2030;
+  --cm-bg-soft: #252a3b;
+  --cm-fg: #ece6d8;
+  --cm-muted: #9a927f;
+  --cm-accent: #d4a574;
+  --cm-accent-2: #e8c99a;
+  --cm-danger: #c46b6b;
+  --cm-safe: #7ea88a;
+  --cm-line: rgba(232, 226, 216, 0.12);
+  --cm-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --cm-font-display: "Songti TC", "Noto Serif TC", "PMingLiU", "PingFang TC", serif;
+  --cm-font-ui: "PingFang TC", "Noto Sans TC", "Source Han Sans TC", "Microsoft JhengHei", sans-serif;
+  --cm-radius: 16px;
+  --cm-radius-sm: 10px;
+  --cm-pad: 16px;
+  --cm-max: 480px;
+  --cm-safe-top: env(safe-area-inset-top, 0px);
+  --cm-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --cm-nav-h: 64px;
+  --cm-top-h: 92px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: var(--cm-bg);
+  color: var(--cm-fg);
+  font-family: var(--cm-font-ui);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  /* [ART] 可改成 art/ 背景圖 */
+  background:
+    radial-gradient(1200px 600px at 50% -10%, rgba(212, 165, 116, 0.08), transparent 50%),
+    var(--cm-bg);
+}
+
+.cm-app {
+  width: 100%;
+  max-width: var(--cm-max);
+  min-height: 100dvh;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent 28%), var(--cm-bg);
+  box-shadow: var(--cm-shadow);
+}
+
+/* ----- top bar / wall clock ----- */
+.cm-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  padding: calc(10px + var(--cm-safe-top)) var(--cm-pad) 12px;
+  background: color-mix(in srgb, var(--cm-bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--cm-line);
+}
+
+.cm-brand {
+  font-family: var(--cm-font-display);
+  font-size: 13px;
+  letter-spacing: 0.28em;
+  color: var(--cm-accent);
+  text-align: center;
+  margin: 0 0 4px;
+}
+
+.cm-clock {
+  /* [ART] 牆上時鐘：可在此加鐘面圖 */
+  font-family: var(--cm-font-display);
+  text-align: center;
+  font-size: 22px;
+  letter-spacing: 0.08em;
+  color: var(--cm-accent-2);
+}
+
+.cm-clock small {
+  display: block;
+  margin-top: 2px;
+  font-family: var(--cm-font-ui);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--cm-muted);
+}
+
+.cm-vitals {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px 12px;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--cm-muted);
+}
+
+.cm-hp {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cm-hp-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.cm-hp-bar {
+  height: 8px;
+  border-radius: 99px;
+  background: var(--cm-bg-soft);
+  overflow: hidden;
+  border: 1px solid var(--cm-line);
+}
+
+.cm-hp-bar > i {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #8a4a4a, var(--cm-accent));
+  border-radius: inherit;
+  transition: width 0.35s ease;
+}
+
+.cm-hp-bar.is-low > i { background: var(--cm-danger); }
+.cm-hp-bar.is-safe > i { background: var(--cm-safe); }
+
+.cm-res {
+  display: flex;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.cm-res b { color: var(--cm-fg); font-weight: 600; }
+
+/* ----- stage ----- */
+.cm-stage {
+  flex: 1;
+  padding: 14px var(--cm-pad) calc(var(--cm-nav-h) + var(--cm-safe-bottom) + 18px);
+}
+
+.cm-panel h2 {
+  font-family: var(--cm-font-display);
+  font-weight: 500;
+  font-size: 20px;
+  letter-spacing: 0.12em;
+  margin: 0 0 6px;
+}
+
+.cm-kicker {
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  color: var(--cm-accent);
+  margin: 0 0 8px;
+}
+
+.cm-lead, .cm-note {
+  color: var(--cm-muted);
+  font-size: 14px;
+  margin: 0 0 14px;
+}
+
+.cm-card {
+  background: var(--cm-bg-elev);
+  border: 1px solid var(--cm-line);
+  border-radius: var(--cm-radius);
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.cm-actions {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.cm-btn {
+  appearance: none;
+  border: 1px solid var(--cm-line);
+  background: var(--cm-bg-soft);
+  color: var(--cm-fg);
+  font: inherit;
+  font-size: 15px;
+  letter-spacing: 0.06em;
+  border-radius: var(--cm-radius-sm);
+  min-height: 48px;
+  padding: 10px 14px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.cm-btn:active { transform: translateY(1px); }
+.cm-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.cm-btn-primary {
+  background: color-mix(in srgb, var(--cm-accent) 22%, var(--cm-bg-soft));
+  border-color: color-mix(in srgb, var(--cm-accent) 45%, var(--cm-line));
+  color: var(--cm-accent-2);
+}
+
+.cm-btn-ghost {
+  background: transparent;
+}
+
+.cm-btn-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.cm-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0 0;
+}
+
+.cm-tag {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--cm-muted);
+  border: 1px solid var(--cm-line);
+  border-radius: 99px;
+  padding: 3px 8px;
+}
+
+.cm-log {
+  max-height: 42vh;
+  overflow: auto;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  font-size: 13px;
+}
+
+.cm-log li {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--cm-line);
+  color: var(--cm-muted);
+}
+
+.cm-log li strong { color: var(--cm-fg); font-weight: 600; }
+.cm-log .is-win { color: var(--cm-safe); }
+.cm-log .is-stop { color: var(--cm-accent); }
+.cm-log .is-dmg { color: var(--cm-danger); }
+
+/* ----- nav ----- */
+.cm-nav {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--cm-max);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  min-height: calc(var(--cm-nav-h) + var(--cm-safe-bottom));
+  padding: 6px 6px calc(6px + var(--cm-safe-bottom));
+  background: color-mix(in srgb, var(--cm-bg-elev) 94%, transparent);
+  border-top: 1px solid var(--cm-line);
+  backdrop-filter: blur(10px);
+  z-index: 20;
+}
+
+.cm-nav button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--cm-muted);
+  font: inherit;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  min-height: 48px;
+  padding: 6px 4px;
+  cursor: pointer;
+}
+
+.cm-nav button.is-on {
+  color: var(--cm-accent-2);
+}
+
+/* ----- modal (offline report) ----- */
+.cm-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.cm-modal.is-open { display: flex; }
+
+.cm-modal-sheet {
+  width: 100%;
+  max-width: var(--cm-max);
+  max-height: 86dvh;
+  overflow: auto;
+  background: var(--cm-bg-elev);
+  border-radius: 20px 20px 0 0;
+  padding: 18px 18px calc(18px + var(--cm-safe-bottom));
+  border: 1px solid var(--cm-line);
+}
+
+.cm-shop-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--cm-line);
+}
+
+.cm-shop-item p { margin: 2px 0 0; font-size: 12px; color: var(--cm-muted); }
+.cm-shop-item h3 { margin: 0; font-size: 15px; font-weight: 600; }
+
+.cm-hidden { display: none !important; }
+
+@media (min-width: 520px) {
+  body { padding: 12px 0; }
+  .cm-app { min-height: calc(100dvh - 24px); border-radius: 20px; overflow: hidden; }
+  .cm-nav { position: sticky; transform: none; left: auto; }
+}
